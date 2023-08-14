@@ -1,0 +1,8 @@
+StudentID,FirstName,LastName,Age,Gender,Scholarship,Email
+5a01,Alice,Smith,20,Female,True,alice@gmail.com
+5a12,Bob,Higgins,21,Male,True,bob@hotmail.com
+5b05,Charlie,Wylie,22,Male,False,charlie@yahoo.com
+5b10,David,Card,20,Male,False,david@gmail.com
+5e04,Eva,Longman,23,Female,False,eva@outlook.com
+5b11,Frankie,Krueger,20,Female,True,frankie@outlook.com
+6a01,Gerald,Nivea,19,Male,False,gerald@gmail.com
