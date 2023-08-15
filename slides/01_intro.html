@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr Musashi Jacobs-Harukawa">
+  <meta name="dcterms.date" content="2023-08-15">
+  <title>Introduction to Python</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../reveal.js/dist/reveal.css">
+  <style>
+    .reveal .sourceCode {  /* see #7635 */
+      overflow: visible;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../reveal.js/dist/theme/white.css" id="theme">
+  <link rel="stylesheet" href="minimal-theme.css"/>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Introduction to Python</h1>
+  <p class="author">Dr Musashi Jacobs-Harukawa</p>
+  <p class="institute">DDSS @ Princeton University</p>
+  <p class="date">15 Aug 2023</p>
+</section>
+
+<section>
+<section id="first-things" class="title-slide slide level1">
+<h1>First Things</h1>
+
+</section>
+<section id="ground-rules" class="slide level2">
+<h2>Ground Rules</h2>
+<ul>
+<li class="fragment">Asking questions</li>
+<li class="fragment">Contacting me</li>
+</ul>
+</section>
+<section id="tech-check" class="slide level2">
+<h2>Tech Check</h2>
+<ul>
+<li class="fragment">Open the following link and follow the
+instructions.</li>
+<li class="fragment">Once you have run the command in the notebook, come
+back to me.</li>
+</ul>
+</section>
+<section id="format" class="slide level2">
+<h2>Format</h2>
+<ul>
+<li class="fragment">Lecture</li>
+<li class="fragment">Notebooks with same material as slides</li>
+<li class="fragment">Additional exercises in repo</li>
+</ul>
+</section>
+<section id="about-me" class="slide level2">
+<h2>About Me</h2>
+<ul>
+<li class="fragment">Postdoc Data-Driven Social Science Initiative,
+Princeton University</li>
+<li class="fragment">Research: Applied ML/Social Science Methodology
+(primarily NLP)</li>
+<li class="fragment">Previously: DPhil University of Oxford</li>
+<li class="fragment">Previously previously: Data Scientist in
+Finance</li>
+</ul>
+</section>
+<section id="learning-objectives" class="slide level2">
+<h2>Learning Objectives</h2>
+<ul>
+<li class="fragment">How is Python used in (social science)
+research?</li>
+<li class="fragment">Basic base Python programming</li>
+<li class="fragment">Basic data analysis in Python</li>
+</ul>
+</section></section>
+<section>
+<section id="python-for-research" class="title-slide slide level1">
+<h1>Python for Research</h1>
+
+</section>
+<section id="for-beginners-a-description" class="slide level2">
+<h2>For Beginners: A Description</h2>
+<p>Python is an <em>open-source, general-purpose scripting
+language</em>.</p>
+</section>
+<section id="open-source" class="slide level2">
+<h2>Open-Source</h2>
+<ul>
+<li class="fragment">Built by a community</li>
+<li class="fragment">Maintained by a community</li>
+<li class="fragment">Free to use for all</li>
+</ul>
+</section>
+<section id="general-purpose" class="slide level2">
+<h2>General-Purpose</h2>
+<ul>
+<li class="fragment">If you’re doing it on a computer and there’s some
+repetitive element, then you can automate it in Python.</li>
+<li class="fragment">Python isn’t limited to Data Science, but it’s very
+popular with data scientists!</li>
+</ul>
+</section>
+<section id="scripting" class="slide level2">
+<h2>Scripting</h2>
+<ul>
+<li class="fragment">No strict definition for what a “script” is.</li>
+<li class="fragment">Series of commands to automate some task.</li>
+<li class="fragment">Like a pipeline: takes some inputs, does some
+things to these inputs, and gives back some outputs.</li>
+</ul>
+</section>
+<section id="language" class="slide level2">
+<h2>Language</h2>
+<ul>
+<li class="fragment">Python is a language, and not an application.</li>
+<li class="fragment">Practical difference for you:
+<ul>
+<li class="fragment">most applications provide you options to select
+from.</li>
+<li class="fragment">languages require to generate commands from
+accepted rules.</li>
+</ul></li>
+<li class="fragment">Upshot is that you can do nearly anything with
+Python!</li>
+</ul>
+</section>
+<section id="for-researchers-what-can-we-use-python-for"
+class="slide level2">
+<h2>For Researchers: what can we use Python for?</h2>
+<ul>
+<li class="fragment">Generally: <em>any repetitive task done on a
+computer can be automated with Python</em>.</li>
+<li class="fragment">Ways I use it:
+<ul>
+<li class="fragment">Data collection (web scraping)</li>
+<li class="fragment">Data cleaning/analysis</li>
+<li class="fragment">Data visualization</li>
+<li class="fragment">Machine learning</li>
+<li class="fragment">Deep learning</li>
+</ul></li>
+</ul>
+</section>
+<section id="for-engineers-how-is-research-different-from-development"
+class="slide level2">
+<h2>For Engineers: how is research different from development?</h2>
+<ul>
+<li class="fragment">Research:
+<ul>
+<li class="fragment">Usage: scripting, interactive usage</li>
+<li class="fragment">Concerns: ease of use, time-efficiency</li>
+</ul></li>
+<li class="fragment">Development:
+<ul>
+<li class="fragment">Use: application development</li>
+<li class="fragment">Concerns: portability, deployment, resource
+efficiency</li>
+</ul></li>
+</ul>
+</section>
+<section id="python-vs-alternatives" class="slide level2">
+<h2>Python vs Alternatives</h2>
+<ul>
+<li class="fragment"><code>Python</code> and <code>R</code> popular
+languages for data analysis</li>
+<li class="fragment">My observations:
+<ul>
+<li class="fragment">Functionality</li>
+<li class="fragment">Contribution</li>
+<li class="fragment">Standards</li>
+<li class="fragment">Robustness</li>
+</ul></li>
+<li class="fragment">Open source or nothing</li>
+</ul>
+</section>
+<section id="python-research-tools" class="slide level2">
+<h2>Python Research Tools</h2>
+<p>Suggestions:</p>
+<ul>
+<li class="fragment">IDE: VSCode, Jupyter</li>
+<li class="fragment">Package Management: Conda/Mamba</li>
+</ul>
+</section></section>
+<section>
+<section id="before-we-start-coding" class="title-slide slide level1">
+<h1>Before we start coding</h1>
+
+</section>
+<section id="why-automate" class="slide level2">
+<h2>Why Automate?</h2>
+<ul>
+<li class="fragment">Advantage of automation cost, scale, and
+scope.</li>
+<li class="fragment">To harness computational methods, need to represent
+our observations in a way that algorithms and programs can utilise.</li>
+<li class="fragment">Process of quantifying and structuring our
+observations usually entails loss of some information.</li>
+</ul>
+<div class=".notes">
+<ul>
+<li class="fragment">As social scientists, our goal when automating</li>
+<li class="fragment">This automation is not limited to collecting data.
+Running a regression or sorting your responses by data is the automation
+of doing this by hand.</li>
+<li class="fragment">Some qualitative scholars I speak to
+<strong>contend</strong> that the validity of the quantitative endeavour
+ends there.
+<ul>
+<li class="fragment">Are there unquantifiable things?</li>
+</ul></li>
+<li class="fragment">I’m more optimistic about what is possible, and
+think that the key to having valid quantitative inferences is to be
+extremely clear on the connection between the data in your analysis and
+the actual events you are measuring.</li>
+</ul>
+</div>
+</section>
+<section id="representing-information" class="slide level2">
+<h2>Representing Information</h2>
+<ul>
+<li class="fragment">Choosing a representation of your information that
+retains relevant properties is key.</li>
+<li class="fragment">To read more about this particular debate, a good
+starting point is <a
+href="https://pdfs.semanticscholar.org/2680/6102a45a6104489872dd3241b6e8030bbc40.pdf">Stevens
+(1946)</a>.</li>
+</ul>
+</section>
+<section id="data-types" class="slide level2">
+<h2>Data Types</h2>
+<p>Data types are concerned with the representation of individual data
+points, or observations.</p>
+<ul>
+<li class="fragment">Logical</li>
+<li class="fragment">Numerical</li>
+<li class="fragment">Categorical</li>
+<li class="fragment">Text</li>
+<li class="fragment">Date and time</li>
+</ul>
+</section>
+<section id="data-structures" class="slide level2">
+<h2>Data Structures</h2>
+<p>Data structures are concerned with the relations between
+observations.</p>
+<ul>
+<li class="fragment">Are the data points members of the same set?</li>
+<li class="fragment">Are the data points members of the same
+sequence?</li>
+<li class="fragment">Are the data points different features of single
+empirical unit?</li>
+</ul>
+</section>
+<section id="representing-data-on-a-computer" class="slide level2">
+<h2>Representing Data on a Computer</h2>
+<ul>
+<li class="fragment"><em>Good news:</em> Python, like most modern
+programming languages, has ways to represent each of the data types
+listed above.</li>
+<li class="fragment"><em>Bad news:</em> At a fundamental level, this is
+being stored as 0’s and 1’s.</li>
+<li class="fragment"><em>Take away:</em> Take the time to understand the
+relationship between:
+<ul>
+<li class="fragment">your empirical observations,</li>
+<li class="fragment">the abstracted representation of them in your
+mathematical model,</li>
+<li class="fragment">the approximation of this in your computational
+model.</li>
+</ul></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="../reveal.js/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="../reveal.js/plugin/notes/notes.js"></script>
+  <script src="../reveal.js/plugin/search/search.js"></script>
+  <script src="../reveal.js/plugin/zoom/zoom.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: true,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: true,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'bottom-right',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: true,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'default',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: true,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // reveal.js plugins
+        plugins: [
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
