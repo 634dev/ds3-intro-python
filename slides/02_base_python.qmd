@@ -753,12 +753,15 @@ def add_one(x):
 
 ## Namespaces
 
-- Python has _namespaces_ for variables.
-- There are multiple levels of namespace, but the two relevant to you are _local_ and _global_.
-- Variables defined _within_ a function are created within the _local_ namespace of that function.
+- Python has _namespaces_ for variables
+- Multiple levels of namespace: _local_ and _global_
+
+## Namespaces cont.
+
+- _Local_: Variables defined _within_ a function are created within the _local_ namespace of that function.
     - This means that they are only accessible from within the function.
-- Variables defined _outside_ a function are created within the _global_ namespace.
-- If a function contains a reference to a variable, it will first check to see whether the variable exists in the _local_ namespace, and then the _global_ one.
+- _Global_: Variables defined _outside_ a function are created within the _global_ namespace.
+- _Priority_: If a function contains a reference to a variable, it will first check to see whether the variable exists in the _local_ namespace, and then the _global_ one.
 
 ## Namespace Examples
 
@@ -803,6 +806,8 @@ print(f(5))
 
 The following code uses `y`, which is defined globally. Therefore it returns 7.
 
+. . .
+
 ```{python}
 y = 2
 
@@ -814,7 +819,10 @@ print(f(5))
 
 ## `Lambda` Functions
 
-Python has _lambda functions_. These are essentially a way to define a function in-line. Below, the function `f` is equivalent to the line `lambda x: x+1`.
+- Python has _lambda functions_. These are essentially a way to define a function in-line.
+- Below, the function `f` is equivalent to the line `lambda x: x+1`.
+
+. . .
 
 ```{python}
 #| eval: false
