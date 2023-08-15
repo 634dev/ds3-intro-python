@@ -1,0 +1,867 @@
+---
+title: "Part 2: Intro Pandas"
+---
+
+# Preface
+
+## 🐼 ?
+
+- Popular library for analyzing _tabular data_.
+	- Tabular: rectangular, has rows and columns.
+- _Expressive_ and _full-featured_.
+	- Readable syntax
+	- Lots of convenience functions
+
+. . . 
+
+🐼: _panel data, apparently._ ^[https://www.dlr.de/sc/Portaldata/15/Resources/dokumente/pyhpc2011/submissions/pyhpc2011_submission_9.pdf]
+
+
+## Pros and Cons
+
+:::: {.columns}
+
+::: {.column}
+**Reasons to use**
+
+- Support for **many** file types
+- Integrated into data analysis ecosystem
+- Balance of verbosity and function
+- Complex time-series and hierarchically indexed data functionality
+:::
+
+::: {.column}
+**Reasons not to use**
+
+- Struggles with larger datasets (>1M rows)
+- Significant overhead
+- Memory-intensive
+- CPU-only
+
+:::
+
+::::
+
+## Running Scenario
+
+- Analyzing student scores and sending summary reports
+- Two datasets:
+	- `data/scores.csv`: students' scores in 5 subjects
+	- `data/contacts.csv`: students' contact details
+
+## Functionality Covered
+
+- How do I read in data from files?
+- How do I select and filter values?
+- How do I perform calculations on data?
+- How do I merge/combine data from multiple sources?
+
+# Importing Libraries
+
+_A brief aside on a first step that tends to get overlooked._
+
+## Libraries
+
+- Functionality of base Python is limited for data analysis workflow
+- Python language is extensible, benefits from enormous ecosystem
+- `pandas` is a _library_ for data analysis
+
+## `import`
+
+- To use a library, we need to `import` it:
+
+. . .
+
+```{python}
+#| output-location: column
+import pandas
+```
+
+- In Jupyter, we can use `%who` to list objects in the global namespace
+
+. . .
+
+```{python}
+#| output-location: column
+%who
+```
+
+- The methods within pandas are now accessible as _methods_ of the imported _module_.
+
+. . .
+
+```{python}
+#| output-location: column
+pandas.__version__
+```
+
+## `from`
+
+- We can use the `from` command to import objects and methods directly from modules into the global namespace.
+
+. . .
+
+```{python}
+#| output-location: column
+from pandas import __version__
+print(__version__)
+```
+
+## `as`
+
+- The default approach in Python is to keep fewer objects in the global namespace.
+- This means always prefacing the function or class we want to use with the prefix name.
+- This can get verbose, so we often abbreviate library names with `as`:
+
+. . .
+
+```{python}
+#| output-location: column
+import pandas as pd
+print(pd)
+print(pd.DataFrame)
+```
+
+## Contrast with `R`
+
+- In `R`, the default approach is to import all methods from a library into the global namespace.
+- If we did this with `pandas` it would look like this:
+
+. . .
+
+```{python}
+from pandas import *
+%who
+```
+
+## Cleanup
+
+NB: `%`-commands only work in Jupyter (IPython).
+
+```{python}
+%reset -f
+import pandas as pd # normal way of importing
+```
+
+
+# Getting Your Data
+
+## Manual `DataFrame`
+
+- Can be constructed manually from a `dict` of equal-length `list`s.
+
+. . .
+
+```{python}
+#| output-location: default
+scores_dict = {
+	'student_id': ['5a01', '5a12', '5b05', '5b10', '5e04'],
+	'math':    [95, 78, 85, 90, 88],
+	'english': [97, 91, 86, 89, 90],
+	'history': [80, 89, 94, 87, 85],
+	'biology': [81, 86, 88, 99, 88],
+	'art':     [86, 81, 82, 91, 84]
+}
+```
+
+## Manual `DataFrame`
+
+```{python}
+df = pd.DataFrame(data=scores_dict)
+df
+```
+
+
+## Reading from a file
+
+`pandas` comes with functions for reading and writing to all kinds of data formats. A quick list can be viewed using tab completion:
+
+```{python}
+#| eval: false
+#| output-location: default
+pd.read_<TAB>
+```
+. . .
+
+	read_clipboard() read_gbq()       read_parquet()   read_sql_query()
+	read_csv()       read_hdf()       read_pickle()    read_sql_table()
+	read_excel()     read_html()      read_sas()       read_stata()    
+	read_feather()   read_json()      read_spss()      read_table()    
+	read_fwf()       read_orc()       read_sql()       read_xml()      
+
+## Data IO: `read_csv`
+
+. . .
+
+```{python}
+#| eval: false
+#| output-location: default
+df = pd.read_csv("../data/scores.csv")
+df
+```
+. . .
+
+```{python}
+#| echo: false
+#| output-location: default
+df = pd.read_csv("../data/scores.csv")
+from IPython.display import HTML
+HTML("../figures/pandas_base.html")
+```
+
+
+# Selecting Data
+
+- "What were everyone's `math` scores?"
+- "What did student `5a12` get on all subjects?"
+- "What did `5a12` and `5e04` get on `history` and `art`?"
+
+
+## Columns and Index
+
+- Entries indexed by columns and rows
+
+. . .
+
+```{python}
+#| echo: false
+df
+```
+
+## `df.columns` and `df.index`
+
+- These can be accessed through following:
+
+. . .
+
+```{python }
+#| output-location: column-fragment
+df.columns
+```
+. . .
+
+```{python}
+#| output-location: column-fragment
+df.index
+```
+
+- By default dataframes have a numerical index.
+
+## Setting the Index
+
+- `df.set_index()` returns dataframe with new index
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+#| code-line-numbers: "1"
+df = df.set_index('student_id')
+df.index
+```
+
+. . .
+
+```{python}
+#| echo: false
+from IPython.display import HTML
+HTML("../figures/pandas_base.html")
+```
+
+
+## `.loc`
+
+- Use `.loc` for name-based indexing.
+- General syntax: `.loc[<INDEX>, <COLS>]`
+	- `<INDEX>` and `<COLS>` correspond to the index and column names.
+	- They can be a single value, a list, or `:` to indicate "all".
+- Let's learn by example:
+
+## Row
+
+- "What did `5a01` get on all (`:`) exams?"
+
+. . .
+
+```{python}
+#| eval: false
+#| output-location: default
+df.loc['5a01', :]
+```
+
+. . .
+
+```{python}
+#| echo: false
+#| output-location: default
+HTML("../figures/pandas_loc_row.html")
+```
+
+## Column
+
+- "What did everyone (`:`) get on `history`?"
+
+. . .
+
+```{python}
+#| eval: false
+#| output-location: default
+df.loc[:, 'history']
+```
+
+. . .
+
+```{python}
+#| echo: false
+#| output-location: default
+HTML("../figures/pandas_loc_col.html")
+```
+
+## Multiple Rows
+
+- "What did `5a01` and `5a12` (`['5a01', '5a12']`) get on all (`:`) exams?"
+
+. . .
+
+```{python}
+#| eval: false
+#| output-location: default
+df.loc[['5a01', '5a12'], :]
+```
+
+. . .
+
+```{python}
+#| echo: false
+#| output-location: default
+HTML("../figures/pandas_loc_multi_row.html")
+```
+
+## Multiple Columns
+
+- What did everyone (`:`) get on `art` and `history` (`['art', 'history']`)?
+
+. . .
+
+```{python}
+#| eval: false
+#| output-location: default
+df.loc[:, ['art', 'history']]
+```
+
+. . .
+
+```{python}
+#| echo: false
+#| output-location: default
+HTML("../figures/pandas_loc_multi_col.html")
+```
+
+## Label Order
+
+Note the order of labels changes the order of columns:
+
+. . .
+
+```{python}
+df.loc[:, ['art', 'history']]
+```
+
+## Cell
+
+- What did `5a01` get in `history`?
+
+. . .
+
+```{python}
+#| eval: false
+#| output-location: default
+df.loc['5a01', 'history']
+```
+
+. . .
+
+```{python}
+#| echo: false
+#| output-location: default
+HTML("../figures/pandas_loc_cell.html")
+```
+
+## Multiple Values
+
+- What did `5a01` get in `history` and `art`?
+
+. . .
+
+```{python}
+#| eval: false
+#| output-location: default
+df.loc['5a12', ['history', 'art']]
+```
+
+. . .
+
+```{python}
+#| echo: false
+#| output-location: default
+HTML("../figures/pandas_loc_multi1.html")
+```
+
+
+## cont.
+
+- What did `5a01`, `5a12`, and `5b05` get in `biology` and `art`?
+
+. . .
+
+```{python}
+#| eval: false
+#| output-location: default
+df.loc[['5a01', '5a12', '5b05'], ['biology', 'art']]
+```
+
+. . .
+
+```{python}
+#| echo: false
+#| output-location: default
+HTML("../figures/pandas_loc_multi2.html")
+```
+
+## Filtering
+
+"The overall scores of students who got _90 or higher in math_""
+
+- Create a _boolean array_
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+df.loc[:, 'math'] >= 90
+```
+
+## `.loc` Filtering
+
+- `.loc` can take boolean arrays:
+
+. . .
+
+```{python}
+#| code-line-numbers: "2"
+good_math = df.loc[:, 'math'] >= 90
+df.loc[good_math, :]
+```
+
+- Shorter syntax: 
+
+. . .
+
+```{python}
+#| eval: false
+df.loc[df['math'].ge(90), :]
+```
+
+## Combining Indexers and Filters
+
+- `history` scores where `math` and `art` $>=$ 85
+
+. . .
+
+```{python}
+df.loc[(df.loc[:, 'math']>=85) &
+	   (df.loc[:, 'art']>=85),
+	   'history']
+```
+
+## `.iloc`: locational indexing
+
+- First 2 rows (`:2` in Python)
+- Last 3 columns (`-3:`)
+
+. . .
+
+```{python}
+df.iloc[:2, -3:]
+```
+
+# Operations
+
+- "Is this score over 90?"
+- "What was the average `math` score?"
+- "What was `5b10`'s maximum score?""
+- "What was the lowest score in each exam?"
+
+## Some Terminology
+
+Clarifying what I mean in this lecture when I say:
+
+- _Scalar_: a single value
+- _Non-scalar_: a data structure capable of containing multiple data points
+- _Argument(s)_: the input(s) to a function
+
+## `Series` and `DataFrame`
+
+- `pd.Series` are 1-dimensional
+- `pd.DataFrame` are 2-dimensional
+
+## `Series`
+
+- Passing a scalar to an indexer (`.loc`) on a `DataFrame` returns a `Series`
+
+. . .
+
+```{python}
+df.loc[:, 'biology']
+```
+
+## `DataFrame`
+
+- Passing a `list` returns a `DataFrame`
+
+. . .
+
+```{python}
+df.loc[:, ['biology']]
+```
+
+## Arguments at Three Levels
+
+- Scalar: "Is this score over 90?"
+
+. . .
+
+```{python}
+#| output-location: default
+def greater_than_90(x):
+	return x > 90
+```
+
+- Series: "What is the maximum score on one exam?"
+
+. . .
+
+```{python}
+#| output-location: default
+def maximum(scores):
+	return max(scores)
+```
+
+- Dataframe: "How many individual scores?"
+
+. . .
+
+```{python}
+#| output-location: default
+def how_many_elements(df):
+	rows, cols = df.shape
+	return rows*cols
+```
+
+## Convenience Functions
+
+- `Series` and `DataFrame` objects have many common operations built-in:
+  - $\ne$ (`.ne()`), $\gt$ (`.gt()`), ...
+  - mean (`.mean()`), median (`.median()`), standard deviation (`.std()`), ...
+- These tend to be optimized.
+- See [documentation](https://pandas.pydata.org/docs/user_guide/basics.html#descriptive-statistics) for list.
+
+## "What was the average `math` score?"
+
+. . .
+
+```{python}
+df.loc[:, 'math'].mean()
+```
+
+## `apply` and `applymap`
+
+- Custom functions can be applied to `Series` and `DataFrame`s using their `.apply` method.
+- `pd.Series.apply`: functions with _scalar arguments_
+- `pd.DataFrame.apply`: functions with `pd.Series` as an argument
+	- Specify `axis`: 0 is row-wise, 1 is column-wise
+- `pd.DataFrame.applymap`: functions with _scalar arguments_
+
+## "What was the lowest score for each exam and student??"
+
+- Lowest per exam (`axis=0`)
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+df.min(axis=0)
+```
+
+- Lowest per student (`axis=1`, using built-in `min`):
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+df.apply(min, axis=1)
+```
+
+## Convert Scores to A-F Ranking
+
+```{python}
+#| output-location: default
+def convert_score(x):
+	score = ''
+	if x >= 90:
+		score = 'A'
+	elif x >= 80:
+		score = 'B'
+	elif x >= 70:
+		score = 'C'
+	elif x >= 60:
+		score = 'D'
+	else:
+		score = 'F'
+	return score
+```
+
+## Convert Scores to A-F Ranking
+
+```{python}
+df.applymap(convert_score)
+```
+
+# Combining Data
+
+- How do we combine data from multiple sources?
+
+## Two Ways
+
+- Concatenating: sticking it together
+- Joining: merging on common "key"
+
+## We forgot two students!
+
+```{python}
+df_extra = pd.read_csv('../data/scores_extra.csv',
+					   index_col='student_id')
+df_extra
+```
+
+## Concatenation
+
+```{python}
+pd.concat([df, df_extra], axis=0)
+```
+
+## Different Columns
+
+- `.reset_index()` moves the index into a column:
+
+. . .
+
+```{python}
+df_extra.reset_index()
+```
+
+## Different Columns
+
+- Concatenating with different columns creates NA values:
+
+. . .
+
+```{python}
+pd.concat([df_extra, df_extra.reset_index()])
+```
+
+
+## Contact Details
+
+- We want to match scores to students' first names
+
+. . .
+
+```{python}
+pd.read_csv('../data/contacts.csv')
+
+```
+
+## Preparing data for joining
+
+- The two dataframes have one column in common: the student ID.
+	- In one it's `StudentID`, in the other `student_id`.
+- For visual simplicity, I move `student_id` back to the columns
+
+. . .
+
+```{python}
+df_contact = pd.read_csv('../data/contacts.csv')
+df_scores = df.reset_index()
+```
+
+## Key
+
+- Note that the two dataframes do not have the exact same values of student ID!
+
+. . .
+
+```{python}
+#| output-location: column
+df_contact['StudentID']
+```
+
+```{python}
+#| output-location: column
+df_scores['student_id']
+```
+
+## Merge Syntax
+
+```{python}
+#| eval: false
+pd.merge(
+	how=<inner/left/right/outer>
+	left=df_contact[['FirstName', 'StudentID']],
+	right=df_scores[['student_id', 'history']],
+	left_on='StudentID',
+	right_on='student_id')
+```
+
+- We specify the two dataframes as `left` and `right`
+- We specify the common key for each dataframe
+	- Note if they were the same, we could use the argument `on`
+- `how` is easiest to explain visually
+
+
+## `how='inner'`
+
+```{python}
+#| echo: false
+pd.merge(
+	how='inner',
+	left=df_contact[['FirstName', 'StudentID']],
+	right=df_scores[['student_id', 'history']],
+	left_on='StudentID',
+	right_on='student_id')
+```
+
+## `how='left'`
+
+```{python}
+#| echo: false
+pd.merge(
+	how='left',
+	left=df_contact[['FirstName', 'StudentID']],
+	right=df_scores[['student_id', 'history']],
+	left_on='StudentID',
+	right_on='student_id')
+```
+
+## `how='right'`
+
+```{python}
+#| echo: false
+pd.merge(
+	how='right',
+	left=df_contact[['FirstName', 'StudentID']],
+	right=df_scores[['student_id', 'history']],
+	left_on='StudentID',
+	right_on='student_id')
+```
+
+## `how='outer'`
+
+```{python}
+#| echo: false
+pd.merge(
+	how='outer',
+	left=df_contact[['FirstName', 'StudentID']],
+	right=df_scores[['student_id', 'history']],
+	left_on='StudentID',
+	right_on='student_id')
+```
+
+# Exploratory Analysis
+
+## British Election Study Data
+
+```{python}
+link = 'http://github.com/muhark/dpir-intro-python/raw/master/Week2/data/bes_data.csv'
+bes_df = pd.read_csv(link)
+```
+## First-Look Functions
+
+- When working with data, your first step should always be _getting to know the data_
+	- Manually inspect samples of the data.
+	- Check dimensions: are they expected?
+	- Check data types: are they expected?
+	- Tabulate variables: what are the levels?
+
+
+## Inspect first 5 rows
+
+. . .
+
+```{python}
+bes_df.head()
+```
+
+
+## What are the dimensions of the dataset?
+
+. . .
+
+```{python}
+bes_df.shape
+```
+
+
+## What data types are each of the columns?
+
+. . .
+
+```{python}
+bes_df.info()
+```
+
+## What unique values do each column contain?
+
+- `pd.Series.value_counts()` for tabulation
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+bes_df['female'].value_counts()
+```
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+bes_df['region'].value_counts()
+```
+
+# Recap
+
+## `pandas`
+
+- File I/O (reading/writing data formats)
+- Indexing, slicing, filtering
+- Operations on data
+- Combining/merging data
+- Exploratory look
+
+
+# Additional Resources
+
+## Textbook
+
+The following sections of _Python for Data Analysis: Data Wrangling with Pandas, NumPy and IPython, 2nd edition_ are relevant to this lecture:
+
+- 5.*: Getting Started with pandas
+- 6.*: Data Loading, Storage and File Formats
+- 7.1-2: Data Cleaning and Preparation
+- 7.3: String Manipulation
+- 12.1: Categorical Data
+
+## Blogs, Docs
+
+- [`pandas` guide to combining dataframes](https://pandas.pydata.org/docs/user_guide/merging.html)
+- Pandas Data: https://pbpython.com/pandas_dtypes.html

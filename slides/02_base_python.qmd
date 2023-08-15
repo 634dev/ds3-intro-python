@@ -1,0 +1,850 @@
+---
+title: "Part 1: Base Python"
+---
+
+# Crash Course
+
+## "Base"
+
+- Like many languages, Python is enhanced by a great number of "libraries".
+- Libraries extend the functionality of a language, e.g. for data analysis.
+
+## How much base Python do I need to know?
+
+- Varies with application
+- This course covers minimum needed for data analysis workflow
+- Deep learning or app development requires more
+- Improving knowledge of core functionality helps you write elegant code.
+
+## Course Outline
+
+1. Variables
+2. Data Types
+3. Data Structures
+4. Control Flow
+5. Functions
+
+# Values, Variables and Types
+
+## Workspace
+
+_A mental image if this is your first time programming_
+
+- When we start the Python "session", imagine we create an empty box.
+- We use commands, written into the cells of the notebook, to interact with this box.
+    - We can create objects that persist inside the box.
+    - We can modify objects inside the box.
+- We use the `print()` function to display these objects in the output.
+
+
+## First Command: "Hello World!"
+
+Write the following command into the first cell:
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+print("Hello World!")
+```
+
+
+## Variable Assignment
+
+- Variables are names that point to particular objects in the box.
+- These objects can be values, functions, etc.
+- We assign variables with the `=` operator.
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+x = 1
+y = 2
+print(x)
+print(y)
+```
+
+## Aside: Variable Assignment Rules
+
+There are some rules for variable assignment:
+
+- Variable names cannot contain spaces
+
+. . .
+```{python}
+#| output-location: default
+a variable = "this will give an error"
+```
+
+- The first letter of the variable cannot be a number or symbol
+
+. . . 
+
+```{python}
+#| output-location: default
+1st_variable = "this will also give an error"
+```
+. . .
+
+Both of these return `SyntaxError` because the interpreter cannot understand these commands.
+
+
+# Data Types
+
+Here are four data types in base Python:
+
+- Integer `int`: whole numbers
+- Boolean `bool`: true/false values
+- Float `float`: rational numbers
+- String `str`: character sequences
+
+## Integers
+
+Integers (`int`) are whole numbers, positive or negative.
+
+- Created by writing a number without a `.`
+
+```{python}
+#| eval: false
+42
+0
+-15343
+```
+
+
+## Integer Operations
+
+- As seen, integers are assigned with the `=` operator.
+
+. . .
+
+```{python}
+#| output-location: default
+a = 5
+b = 13
+```
+
+- Arithmetic operations are as expected: `+`, `-`, `*`, `/`
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+print(a + b)
+print(a - b)
+print(a * b)
+```
+
+- `==` tests equivalence.
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+print(a == b)
+```
+
+## Booleans
+
+- Booleans are True/False values.
+  - You saw them on the previous slide!
+- There are two Booleans: `True` and `False`.
+
+
+## Boolean Operators
+
+- `and`: logical _conjunction_
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+print(True and True)
+print(True and False)
+print(False and True)
+print(False and False)
+```
+
+- `or`: logical _disjunction_
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+print(True or True)
+print(True or False)
+print(False or True)
+print(False or False)
+```
+
+## Aside: Bools and 0, 1
+
+Booleans behave like the integers 0 and 1.
+
+. . .
+
+```{python}
+#| output-location: column
+True + True
+```
+
+. . .
+
+```{python}
+#| output-location: column
+True * False
+```
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+#| error: true
+# What do you think will happen?
+False / False
+```
+
+## Floats
+
+- Floats are, technically, the representation of real numbers ($\mathbb{R}$) in base 2.
+- For our purposes, all non-whole numbers are represented by floats.
+- Floats can be constructed using the `.` in a number:
+
+. . .
+
+```{python}
+x = 1.0
+y = 3.4
+```
+
+## Integer Division
+
+Python also automatically converts the output of integer division to a float:
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+print(1 / 3)
+print(3)
+print(3 / 1)
+```
+
+## Warning!!
+
+Floats can behave unpredictably.
+
+. . .
+
+Note the following examples:
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+10 * 0.1 * 3 == 3
+```
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+0.1 * 3 * 10 == 3
+```
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+0.1 * 3 == 0.3
+```
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+0.1 * 3
+```
+
+. . . 
+
+[0.30000000000000004.com](https://0.30000000000000004.com/)
+
+## Strings
+
+Strings (`str`) are a _sequence of characters_.
+
+## Creation
+
+- Strings are created by writing a sequence of letters between _single **or** double_ quotes.
+
+. . .
+
+```{python}
+first_word = "Hello"
+second_word = 'World'
+first_punct = "!"
+```
+
+## Equivalence
+
+- We can test equivalence using the `==` operator.
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+print(first_word == first_word)
+print(first_word == second_word)
+```
+
+## Concatenation
+
+Combine _strings_ with the `+` operator:
+
+. . . 
+
+```{python}
+print(first_word + second_word + first_punct)
+```
+
+. . .
+
+You can use variables and values together:
+
+. . .
+
+```{python}
+print(first_word + " " + second_word + first_punct)
+```
+
+## Indexing
+
+- Strings are a _sequence_.
+- Strings can be indexed by using the `[]` operator.
+- _Note that python counts from zero!_
+
+. . .
+
+```{python}
+the_word = "bird"
+
+print(the_word + " is the word")
+print(the_word[0] + " is the first letter of the word")
+print(the_word[1] + " is the second letter of the word")
+```
+
+## Slices
+
+- Use the `:` to return a range of values.
+- The range `[m:n]` returns from the (m+1)th letter to the nth letter.
+
+. . .
+ 
+```{python}
+print(the_word[0:2] + " is the first two letters of the word")
+print(the_word[1:3] + " is the second and third letter of the word")
+```
+
+## Slices
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+# What does this return?
+the_word[0:3] + the_word[0]
+```
+
+
+## Negative Indexing
+
+- `[-1]` returns the last element of a sequence; in this case, the last character in a word.
+
+. . .
+```{python}
+#| output-location: column-fragment
+print(the_word[-1])
+```
+
+- We can use this to get the $n$ last values of a sequence:
+
+. . .
+```{python}
+#| output-location: column-fragment
+print(the_word[-3:])
+```
+
+## Checking and Coercing Types
+
+- `type()` returns the type of an object.
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+type(15)
+```
+
+- The type of an object can be coerced by calling the a different type on the object.
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+type(float(15))
+```
+
+## Checking and Coercing Types
+
+- Sometimes coercion is not possible:
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+int('meow')
+```
+
+- And sometimes it is unpredictable
+
+. . .
+
+
+```{python}
+#| output-location: column-fragment
+print(bool('meow'))
+print(int(-0.99))
+print(str(False)==False)
+```
+
+
+# Data Structures
+
+- **Data types** concern the representation of individual data points, or observations.
+- **Data structures** concern the relations between observations.
+    - Are the data points members of the same set?
+    - Are the data points members of the same sequence?
+    - Are the data points different features of single empirical unit?
+
+## Two Python Data Structures
+
+- Lists (`list`): ordered array
+- Dictionaries (`dict`): key-value mapping
+
+## Lists
+
+Lists are a type of data container in base Python. Lists are:
+
+- 1-dimensional
+- Ordered and indexed
+- Mutable
+- Able to contain any (type of) object
+
+. . .
+
+To create a list, write a sequence of values separated by commas between square brackets:
+
+. . .
+
+```{python}
+my_list = [1, 2, 3]  # only integers
+my_list = [1, 2.0, '3']  # integer, float and string
+```
+
+## Indexing and Slicing Lists
+
+- Lists can be indexed in the same way as strings, using the `list[m:n]` notation.
+- `list[0]` returns the first value of the list
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+#| code-line-numbers: "2"
+my_list = [1, 2.0, '3']
+print(my_list[0])
+
+```
+
+- `list[1:3]` returns a list containing the second and third value of the list
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+#| code-line-numbers: "2"
+print(my_list[1:3])
+```
+
+
+## Growing Lists
+
+- Use `len()` to get the length of a `list`
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+len(my_list)
+```
+
+- Use `.append()` to add an element at the end
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+my_list.append(4)
+print(my_list)
+```
+
+- Adding lists concatenates them:
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+my_list + ['fivesixseven8']
+```
+
+## Removing Items
+
+- Use `.pop()` to remove the final element
+  - NB: `.pop()` also returns the final element
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+last_element = my_list.pop()
+print(last_element)
+print(my_list)
+```
+
+## Changing Values in Lists
+
+. . .
+
+We can assign or reassign values using `=` and indexers:
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+x = ['a', 't', 'e']
+print(x)
+```
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+x[0] = 'A'
+x[1] = 'T'
+print(x)
+```
+
+. . .
+
+We can also replace slices:
+
+```{python}
+#| output-location: column-fragment
+x[0:2] = ['a', 't']
+print(x)
+```
+
+## Dictionaries
+
+- Dictionaries are an unordered mapping of _keys_ to _values_. 
+- Created by writing a list of `key:value` pairs separated by commas between `{}`.
+
+. . .
+
+```{python}
+favourite_icecream = {
+    "Musashi": "chocolate",
+    "Maria": "dulce de leche"
+}
+```
+
+## Retrieving Values
+
+- Values are accessed with `dict_name[key]`
+
+. . . 
+
+```{python}
+print(favourite_icecream['Musashi'])
+print(favourite_icecream['Maria'])
+```
+
+## Modifying Dictionaries
+
+- New key-value pairs can be added or modified with `=`
+
+. . .
+
+```{python}
+favourite_icecream['Chris'] = 'pistachio'
+favourite_icecream['Musashi'] = 'green tea'
+
+print(favourite_icecream['Musashi'])
+print(favourite_icecream['Chris'])
+```
+
+## Accessing All Keys or Values
+
+To view all of the keys or values in a dictionary, you can use the following _methods_:
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+print(favourite_icecream.keys())
+```
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+print(favourite_icecream.values())
+```
+
+. . .
+
+```{python}
+#| output-location: column-fragment
+print(favourite_icecream.items())
+```
+
+# Control Flow
+
+- Control flow structures specify whether and in what order to run blocks of our code.
+- We focus on two:
+    - Conditional execution
+    - Iteration (For loops)
+
+## Conditional Execution
+
+- In Python, to execute code conditionally, we use the following syntax:
+
+. . .
+
+```{python}
+#| eval: false
+#| output-location: default
+if CONDITION:
+    RUN_COMMAND
+```
+
+- If `CONDITION` is `True`, then `RUN_COMMAND` is executed.
+
+## Absolute Value
+
+- Suppose we want the absolute value of a number.
+- "if number is negative, then multiply by -1"
+- We can write it as follows:
+
+. . .
+
+```{python}
+#| code-line-numbers: "3,4"
+number = -2
+
+if number < 0:
+    number = number * -1
+
+print("Absolute value is", number)
+```
+
+
+## If/Else
+
+- We specify what happens if `CONDITION` evaluates `False` using the `else` command.
+
+. . .
+
+```{python}
+#| eval: true
+#| code-line-numbers: "|1|3|4"
+language_to_learn = "Python"
+
+if language_to_learn == "Python":
+    print("You are in the right place!")
+else:
+    print("You might be lost!")
+```
+
+## If/Elif/Else
+
+- `elif` evaluates if the previous `if` or `elif` is `False`
+- and executes if the statement evaluates `True`.
+
+. . .
+
+```{python}
+#| eval: true
+#| code-line-numbers: "|1|3|5|6"
+language_to_learn = "Julia"
+
+if language_to_learn == "Python":
+    print("You are in the right place!")
+elif language_to_learn == "Julia":
+    print("Hertie should offer Julia!")
+elif language_to_learn == "R":
+    print("You should learn a better coding language!")
+else:
+    print("You might be lost!")
+```
+
+
+## For Loops
+
+- A for-loop is a logical structure composed of two parts: an iterable and an action.
+- In python, they are written as follows:
+
+. . .
+
+```{python}
+#| eval: false
+#| code-line-numbers: "|1|2"
+for i in ITERABLE:
+    RUN_COMMAND
+```
+
+
+## Simple Example
+
+```{python}
+for number in [1, 2, 3, 4, 5, 6, 7]:
+    print(number, "+", number, "=", number+number)
+```
+
+## Incrementing a Counter
+
+```{python}
+counter = 1
+for number in [1, 2, 3, 4, 5, 6, 7]:
+    print(number, "*", counter, "=", number*counter)
+    counter = counter*number
+```
+
+# Functions
+
+## Defining Functions
+
+Here's a simple function that adds 1 to the input:
+
+. . .
+
+```{python}
+def add_one(x):
+    y = x+1
+    return y
+```
+
+- The command `def` followed by a space tells Python that you are defining a function.
+- This function is given the name followed by `def`; in this case `add_one`.
+- The _arguments_ of the function are given after the function name, inside `()`.
+- The `:` says that the definition line is done. The following line must be indented by four spaces.
+
+## Namespaces
+
+- Python has _namespaces_ for variables.
+- There are multiple levels of namespace, but the two relevant to you are _local_ and _global_.
+- Variables defined _within_ a function are created within the _local_ namespace of that function.
+    - This means that they are only accessible from within the function.
+- Variables defined _outside_ a function are created within the _global_ namespace.
+- If a function contains a reference to a variable, it will first check to see whether the variable exists in the _local_ namespace, and then the _global_ one.
+
+## Namespace Examples
+
+_Clearing the environment first_
+
+```{python}
+%reset -f
+```
+
+## Local Variables not Accessibly Globally
+
+The following code will result in an error:
+
+. . .
+
+```{python}
+#| error: true
+def f(x):
+    y = 5
+    return x + y
+
+print(y)
+```
+
+## Local Accessed Before Global
+
+The following code will return the _local_ value of `y`, thus returning 10.
+
+. . .
+
+```{python}
+y = 0
+
+def f(x):
+    y = 5
+    return x + y
+
+print(f(5))
+```
+
+## Functions Reading from Global Variables
+
+The following code uses `y`, which is defined globally. Therefore it returns 7.
+
+```{python}
+y = 2
+
+def f(x):
+    return x + y
+
+print(f(5))
+```
+
+## `Lambda` Functions
+
+Python has _lambda functions_. These are essentially a way to define a function in-line. Below, the function `f` is equivalent to the line `lambda x: x+1`.
+
+```{python}
+#| eval: false
+def f(x):
+    return x+1
+
+lambda x: x+1
+```
+
+
+# Recap
+
+## We covered a lot!
+
+- 4 Data Types
+  - `int`: whole numbers
+  - `float`: rational numbers. Unexpected behavior.
+  - `bool`: True/False values
+  - `str`: Character sequence. Behaves like sequence.
+- 2 data structures
+  - Lists: ordered sequence of values
+  - Dictionaries: mapping of key to value
+
+## cont. 
+
+- 2 control flow structures
+  - Conditional execution: `if`/`elif`/`else`
+  - Iteration: for-loops
+- How to write functions
+
+## Question Time
+
+# Break
