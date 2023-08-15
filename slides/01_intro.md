@@ -13,21 +13,27 @@ css: "minimal-theme.css"
 
 # First Things
 
+## Tech Check
+
+- Open the following link and follow the instructions:
+
+https://colab.research.google.com/github/mmjh-dev/ds3-intro-python/blob/main/notebooks/01_tech_check.ipynb
+
+
 ## Ground Rules
 
 - Asking questions
 - Contacting me
 
-## Tech Check
-
-- Open the following link and follow the instructions.
-- Once you have run the command in the notebook, come back to me.
 
 ## Format
 
-- Lecture
-- Notebooks with same material as slides
-- Additional exercises in repo
+- Lecture: slides, explanation, video recording
+- Notebooks:
+  - Execute code along with me if you like
+  - Ask me questions about what's happening
+- Additional exercises in repo:
+  - If there's time, we can work on them together
 
 
 ## About Me 
@@ -164,3 +170,21 @@ Data structures are concerned with the relations between observations.
     -  your empirical observations,
     -  the abstracted representation of them in your mathematical model,
     -  the approximation of this in your computational model.
+
+# Coding Tutorial
+
+## Part 1: Base Python
+
+https://colab.research.google.com/github/mmjh-dev/ds3-intro-python/blob/main/notebooks/02_base_python.ipynb
+
+## Exercises for Part 1
+
+https://colab.research.google.com/github/mmjh-dev/ds3-intro-python/blob/main/exercises/part1_problems.ipynb
+
+## Part 2: Intro Pandas
+
+https://colab.research.google.com/github/mmjh-dev/ds3-intro-python/blob/main/notebooks/03_pandas.ipynb
+
+## Exercises for Part 2
+
+https://colab.research.google.com/github/mmjh-dev/ds3-intro-python/blob/main/exercises/part1_problems.ipynb
