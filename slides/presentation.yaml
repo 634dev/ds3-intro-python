@@ -1,0 +1,9 @@
+slide-level: 2
+revealjs-url: "../reveal.js"
+progress: true
+section-titles: false
+aspectratio: 1610
+mainfont: "IBM Plex Sans-Light"
+theme: "white"
+css: "minimal-theme.css"
+verbosity: INFO

@@ -1,0 +1,11 @@
+format:
+  revealjs:
+    incremental: true
+jupyter: ds3
+execute:
+  cache: true
+echo: true
+eval: true
+error: true
+output-location: fragment
+highlight-style: ayu
